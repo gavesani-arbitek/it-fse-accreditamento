@@ -1,0 +1,35 @@
+name: Aggiorna statistiche documenti
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'GATEWAY/**/data.json'
+
+permissions:
+  contents: write
+
+jobs:
+  update-stats:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Calcola statistiche documenti
+        id: stats
+        run: |
+          python3 .github/scripts/count_documents.py >> $GITHUB_OUTPUT
+
+      - name: Aggiorna README con le statistiche
+        run: |
+          python3 .github/scripts/update_readme.py \
+            "${{ steps.stats.outputs.total_sent }}" \
+            "${{ steps.stats.outputs.total_ko }}"
+
+      - name: Commit aggiornamento statistiche
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: aggiorna statistiche documenti [skip ci]"
+          file_pattern: README.md

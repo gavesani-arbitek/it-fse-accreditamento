@@ -11,6 +11,15 @@ Questo repository raccoglie i risultati dei test effettuati per l'accreditamento
 		- [Struttura file json di equivalenza](#struttura-file-json-di-equivalenza)
 	- [Nuova tipologia documentale per applicativo già presente nella Lista dei software convalidati](#nuova-tipologia-documentale-per-applicativo-già-presente-nella-lista-dei-software-convalidati)
 
+## Statistiche
+
+<!-- STATS:START -->
+| Metrica | Valore |
+|---|---|
+| Totale documenti inviati | **7060** |
+| Totale documenti non validati (con errori nella risposta) | **1863** |
+<!-- STATS:END -->
+
 ## Procedura di caricamento dei risultati
 Per inviare i risultati dei test effettuati è necessario esegure una pull request.  
 La struttura del repository è la seguente:

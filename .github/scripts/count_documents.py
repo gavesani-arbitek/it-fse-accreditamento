@@ -23,6 +23,11 @@ def count_documents(base_dir):
             total_sent += len(results)
             for result in results:
                 files = result.get("files") or []
+                # Documents not validated are identified by the "_KO" suffix in
+                # their filename, which is the naming convention used throughout
+                # this repository to mark test cases that expect an error
+                # response from the gateway (no dedicated status field exists in
+                # the data.json schema).
                 if any("_KO" in fname.upper() for fname in files):
                     total_ko += 1
         except Exception as e:

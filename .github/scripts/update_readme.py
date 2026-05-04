@@ -36,9 +36,16 @@ def update_readme(total_sent, total_ko):
     if pattern.search(content):
         updated = pattern.sub(new_block, content)
     else:
-        # Se il blocco non esiste, aggiungilo dopo la prima riga del titolo
+        # If the block does not exist yet, insert it before the first level-2
+        # heading so the stats always appear near the top of the page.
+        anchor = "\n## Procedura di caricamento dei risultati"
+        if anchor not in content:
+            raise RuntimeError(
+                "Impossibile trovare il punto di inserimento nel README. "
+                "Aggiungere manualmente il blocco STATS:START/STATS:END."
+            )
         updated = content.replace(
-            "\n## Procedura di caricamento dei risultati",
+            anchor,
             f"\n## Statistiche\n\n{new_block}\n\n## Procedura di caricamento dei risultati",
             1,
         )
